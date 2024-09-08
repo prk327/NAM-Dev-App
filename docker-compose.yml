@@ -1,0 +1,14 @@
+services:
+  jupyter:
+    image: my_jupyter_notebook:beta1
+    build: .
+    ports:
+      - "8888:8888"
+    environment:
+      - LOCAL_UID=${LOCAL_UID}
+      - LOCAL_GID=${LOCAL_GID}
+      - CHOWN_EXTRA=/home/jovyan/work
+      # - CHOWN_EXTRA_OPTS="-R"
+    volumes:
+      - ./src:/home/jovyan/work
+    user: "${LOCAL_UID}:${LOCAL_GID}"
