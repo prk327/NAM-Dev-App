@@ -1,2 +1,4 @@
 /src/notebooks
+/src/*.ipynb
+/src/.ipynb*/
 Makefile
