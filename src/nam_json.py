@@ -1,6 +1,8 @@
 import pandas as pd
 import secrets
 import string
+from omegaconf import OmegaConf
+from numbers import Number
 
 class Metric_MS():
     def __init__(self):
@@ -210,38 +212,63 @@ class Metric_MS():
                             "select": "${GROUPBY_COLUMN}"
                           }
                         ]
-        
-        
-        
-        
-        
-        
-        
-        
-        
-            
-            
-        
-        
-        
-        
-        
-        
-        
-        
-            
 
 
-            
+
+
+class LoadKPIJson:
+    def __init__(self, jsonFilepath):
+        # Opening JSON file
+        with open(jsonFilepath) as json_file:
+            self.data = json.load(json_file)
+
+    def getItemObject(self, typeObj):
+        listob = []
+        for items in range(len(self.data)):
+            if self.data[items].get('type') == typeObj:
+                listob.append(self.data[items])
+        return listob
+
+    def createKPIDictionary(self, KPI_Data):
+        for kpi in KPI_Data:
+            kpi_dict = {}
+            for jsonColumn, excelColumn in conf.get('kpi').items():
+                if excelColumn:
+                    li = []
+                    for kpi_details in kpi.get('data'):
+                        li.append(kpi_details.get(jsonColumn))
+                    kpi_dict[excelColumn] = li
+        return pd.DataFrame.from_dict(kpi_dict)
+
+class createKPIJson:
+    def __init__(self, excelFilepath):
+        # Opening JSON file
+        self.kpi_data = pd.read_excel(excelFilepath, sheet_name=['KPI'])
+        self.kpi_df = self.kpi_data['KPI']
+
+    def is_string(self, s):
+        if isinstance(s, Number):
+            return False
+        else:
+            return True
+
+    def createJSON(self):
+        datajson = self.kpi_df.to_dict('records')
+        dataItems = []
+        for items in datajson:
+            kpi_dict = {}
+            for jsonColumn, excelColumn in conf.get('kpi').items():
+                if excelColumn:
+                    if excelColumn == "valueSuffix" and items.get(excelColumn) == "%":
+                        kpi_dict["metricType"] = "RATIO"
+                    elif excelColumn == "valueSuffix" and self.is_string(items.get(excelColumn)):
+                        kpi_dict["metricType"] = "COUNT"
+                    if excelColumn == "ID" and self.is_string(items.get(excelColumn)) == False:
+                        kpi_dict[jsonColumn] = "".join(items.get("NAM_KPI_Name").split(" "))
+                    if self.is_string(items.get(excelColumn)):
+                        kpi_dict[jsonColumn] = items.pop(excelColumn)
+            dataItems.append(kpi_dict)
+        return dataItems
         
-        
-        
-    
-        
-        
-        
-        
-        
-        
-        
-        
+if __name__ == "__main__":
+    conf = OmegaConf.load('nam_config.yaml')

@@ -1,0 +1,25 @@
+file:
+  jsonPath: DimentionRCD.json
+  excelPath: DimentionRCD.xlsx
+
+kpi:
+  id: ID
+  name: NAM_KPI_Name
+  runSql: Calculation
+  valueSuffix: valueSuffix
+  description: KPI_Description
+
+filter:
+  id: ID
+  fetchQuery: filter_hierarchy_query
+  name: filter_name
+  runSql: column_to_filter
+  samDrill:
+    condition: samCondition
+    displayName: samColumnName
+    removePadding: samColpadding
+  tableName: enrichment_table
+  queryLevels: hierarchylevels
+  data: list_of_hardcoded_options
+
+

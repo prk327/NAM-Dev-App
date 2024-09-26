@@ -1,6 +1,14 @@
 # Use the official Jupyter Notebook image with Python 3
 FROM quay.io/jupyter/minimal-notebook:latest
 
+COPY ./src/requirements.txt /tmp/
+
+# Install the requirements
+RUN pip install --no-cache-dir -r /tmp/requirements.txt
+
+# Clean up
+RUN rm /tmp/requirements.txt
+
 # Set working directory inside the container
 WORKDIR /home/jovyan/work
 
