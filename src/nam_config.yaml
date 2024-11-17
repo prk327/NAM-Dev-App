@@ -1,25 +1,114 @@
 file:
-  jsonPath: DimentionRCD.json
+  DimentionMetric: DimentionRoamingMSG.json
   excelPath: DimentionRCD.xlsx
 
+packageDetails:
+  id: id
+  Package_Name: Package_Name
+  SubFolder: Sub_Folder
+  DashletName: Dashlet_Name
+  ChartType: Chart_Type
+  Description: Description
+  SAMDrill: SAM_Drill
+  KPIID: KPI_ID
+  GroupByID: GroupBy_ID
+  _list_Custom:
+    id: id
+    customSql: sql
+
+filterMapping:
+  kpiId: kpiID
+  filterId: filterID
+
+kpiQueryMapping:
+  id: kpiQueryid
+  name: kpiQueryname
+  runSql: kpiQueryrunSql
+  select: kpiQueryselect
+  extraConfig: extraConfig
+
+groupByqueryMapping:
+  id: kpiQueryid
+  name: kpiQueryname
+  runSql: kpiQueryrunSql
+  select: kpiQueryselect
+
 kpi:
-  id: ID
+  id: kpiID
   name: NAM_KPI_Name
   runSql: Calculation
   valueSuffix: valueSuffix
+  valuePrefix: valuePrefix
+  decimalFormat: decimalFormat
   description: KPI_Description
+  metricType: metricType
+  _list_kpiDetails:
+    id: kpi_detailid
+    type: type
+    customSql: customSql
 
 filter:
-  id: ID
+  id: filterID
   fetchQuery: filter_hierarchy_query
   name: filter_name
   runSql: column_to_filter
-  samDrill:
-    condition: samCondition
-    displayName: samColumnName
-    removePadding: samColpadding
+  # _dict_cdrTableMapping:
+  #   sessionType: samCDRtable
+  #   protocolSplit: protocolSplit
   tableName: enrichment_table
   queryLevels: hierarchylevels
-  data: list_of_hardcoded_options
+  _dict_data: 
+    listOfChildren: list_of_hardcoded_options
+  accessible: accessible
+  cacheId: cacheId
+  hasHierarchy: hasHierarchy
+  extraClause: extraClause
+  joinLevels: joinLevels
 
+inputFilter:
+  id: filterID
+  name: filter_name
+  runSql: input_filter_column
+  operator: operator
+  regexId: regexId
 
+samDrill:
+  _list_cdrs:
+    label: label
+    cdrTableId: samCDRtable
+  # _list_cdrTableMapping:
+  #   sessionType: samCDRtable
+  #   protocolSplit: protocolSplit
+  _list_mapping:
+    type: ID
+    displayName: samColumnName
+    operator: samLogicOperator
+    values: samHardCodedValues
+    removePadding: samColpadding
+    mappedToFilter: mappedToFilter
+  condition: samCondition
+
+groupBy:
+  id: groupByID
+  name: name
+  runSql: column_to_filter
+  correspondingFilter: filterID
+  _dict_hierarchyGroupByConfiguration:
+    joinTable: enrichment_table
+    joinColumn: joinAggColumn
+    columnToJoin: joinEnrColumn
+  useJoinForDrill: useJoinForDrill
+  hierarchyDrillDown: hierarchyDrillDown
+  hierarchyDrillUp: hierarchyDrillUp
+  joinTable: joinTable
+  joinColumn: joinColumn
+  columnName: columnName
+  displayColumn: displayColumn
+
+tableMap:
+  _list_tableMapping:
+    table: Table
+    minIntervalInHours: Threshold
+  _list_tableMappingOverride:
+    aggregation: aggregation
+    tableOverride: Table
