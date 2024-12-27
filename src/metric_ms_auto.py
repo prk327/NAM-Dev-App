@@ -85,7 +85,7 @@ class MetricJSON:
         GroupBy_Filters, _ = self.SheetToJSON(SheetName)
         groupByData = []
         for items in GroupBy_Filters:
-            grpDict = {"mappableById": True, "topLevel": "All","type": "FILTER"}
+            grpDict = {"mappableById": False, "topLevel": "All","type": "FILTER"}
             for jsonColumn, excelColumn in self.conf.get('filter').items():
                 if self.is_string(items.get(excelColumn)) and items.get(excelColumn) and not jsonColumn.startswith("_"):
                     grpDict.update({jsonColumn: items.get(excelColumn)})
@@ -196,7 +196,7 @@ class MetricJSON:
         for items in GroupBy_Filters:
             map_dict = self.samfilter(items, yamlID)
             if map_dict:
-                fid = {"id" : map_dict['filterId']}
+                fid = '{\"id\": \"%s\"}' %map_dict['filterId']
                 fv = {"filterValue": fid}
                 map_dict.update(fv)
                 filmap.append(map_dict)
@@ -206,7 +206,7 @@ class MetricJSON:
                     objdef = {
                         'kpiId': items.get('kpiId'),
                         'filterId': defil.get('id'),
-                        "filterValue":{"id" : defil.get('id')}
+                        "filterValue": '{\"id\": \"%s\"}' %defil.get('id')
                     }
                     if defil.get('id'):
                         defFil.append(objdef)
