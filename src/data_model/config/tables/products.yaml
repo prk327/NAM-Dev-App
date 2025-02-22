@@ -1,0 +1,10 @@
+# products.yaml
+table_name: products
+includes:
+  - common_columns/id_columns
+columns:
+  - name: product_name
+    type: VARCHAR(100)
+    simulation:
+      type: faker
+      provider: product_name

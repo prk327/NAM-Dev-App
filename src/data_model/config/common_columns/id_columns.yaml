@@ -1,0 +1,18 @@
+# id_columns.yaml
+columns:
+  - name: id
+    type: INT
+    constraints:
+      - primary_key
+      - auto_increment
+    simulation:
+      type: sequence
+      start: 1000
+      step: 1
+
+  - name: uuid
+    type: UUID
+    constraints:
+      - primary_key
+    simulation:
+      type: uuid

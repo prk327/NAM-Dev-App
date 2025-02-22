@@ -1,4 +1,54 @@
-/src/notebooks
-/src/*.ipynb
-/src/.ipynb*/
+*.ipynb
 Makefile
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# Distribution / packaging
+.Python
+build/
+dist/
+*.egg-info/
+
+# Virtual environment
+venv/
+env/
+
+# IDE or editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-workspace
+
+# Test and coverage directories
+.coverage
+.tox/
+.nox/
+*.coverage
+*.hypothesis/
+
+# Jupyter Notebook files
+.ipynb_checkpoints/
+
+# Logs
+*.log
+
+# Configuration files
+*.ini
+*.log
+*.bak
+
+# dotenv files
+.env
+.env.*
+
+# Python wheel files
+*.whl
+
+# MacOS Finder files
+.DS_Store
+
+# Windows system files
+Thumbs.db

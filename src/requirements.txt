@@ -5,3 +5,5 @@ scikit-learn
 openpyxl
 omegaconf
 vertica-python
+pyyaml
+faker

@@ -1,0 +1,29 @@
+# users.yaml
+table_name: users
+columns:
+  - name: user_id
+    type: INT
+    constraints:
+      - primary_key
+      - auto_increment
+    simulation:
+      type: sequence
+      start: 1000
+      step: 1
+
+  - name: username
+    type: VARCHAR(50)
+    constraints:
+      - not_null
+      - unique
+    simulation:
+      type: faker
+      provider: user_name
+
+  - name: created_at
+    type: TIMESTAMP
+    simulation:
+      type: date
+      range:
+        start: "2023-01-01"
+        end: "2023-12-31"

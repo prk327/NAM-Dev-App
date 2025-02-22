@@ -1,0 +1,10 @@
+# data_config.yaml
+global_settings:
+  default_schema: public
+  faker_locale: en_US
+  seed: 42
+
+tables:
+  - users
+  - orders
+  - products

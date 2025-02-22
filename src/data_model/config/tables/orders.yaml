@@ -1,0 +1,29 @@
+# orders.yaml
+table_name: orders
+columns:
+  - name: order_id
+    type: UUID
+    constraints:
+      - primary_key
+    simulation:
+      type: uuid
+
+  - name: user_id
+    type: INT
+    constraints:
+      - foreign_key: users.user_id
+    simulation:
+      type: reference
+      table: users
+      column: user_id
+
+  - name: amount
+    type: DECIMAL(10,2)
+    simulation:
+      type: random
+      distribution: normal
+      params:
+        mean: 100.0
+        std_dev: 25.0
+        max: 200
+        min: 1

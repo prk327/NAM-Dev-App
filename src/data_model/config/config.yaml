@@ -1,0 +1,7 @@
+vertica:
+  host: "vertica-ce"
+  port: 5433
+  user: "cognos"
+  password: "admin1234"
+  database: "vdb"
+  pool_size: 5
