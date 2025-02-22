@@ -8,7 +8,18 @@ services:
       - LOCAL_UID=${LOCAL_UID}
       - LOCAL_GID=${LOCAL_GID}
       - CHOWN_EXTRA=/home/jovyan/work
+      - VERTICA_HOST=vertica      # Use the name of the Vertica container here
+      - VERTICA_PORT=5433         # Port where Vertica is exposed
+      - VERTICA_USER=cognos      # Replace with your Vertica username
+      - VERTICA_PASSWORD=admin1234  # Replace with your Vertica password
+      - VERTICA_DBNAME=vdb  # Replace with your Vertica password
       # - CHOWN_EXTRA_OPTS="-R"
     volumes:
       - ./src:/home/jovyan/work
     user: "${LOCAL_UID}:${LOCAL_GID}"
+    networks:
+      - vertica-network
+    
+networks:
+  vertica-network:
+    external: true               # Use an external network if Vertica is outside Compose

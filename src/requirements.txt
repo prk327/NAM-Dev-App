@@ -4,3 +4,4 @@ matplotlib
 scikit-learn
 openpyxl
 omegaconf
+vertica-python

@@ -6,9 +6,6 @@ COPY ./src/requirements.txt /tmp/
 # Install the requirements
 RUN pip install --no-cache-dir -r /tmp/requirements.txt
 
-# Clean up
-RUN rm /tmp/requirements.txt
-
 # Set working directory inside the container
 WORKDIR /home/jovyan/work
 
@@ -19,6 +16,9 @@ RUN apt-get update && apt-get install -y sudo
 # Add a script to set the user permissions at runtime
 COPY set_user.sh /usr/local/bin/set_user.sh
 RUN chmod +x /usr/local/bin/set_user.sh
+
+# Clean up
+RUN rm /tmp/requirements.txt
 
 # Expose Jupyter port
 EXPOSE 8888
