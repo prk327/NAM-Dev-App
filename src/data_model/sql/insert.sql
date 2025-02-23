@@ -1,2 +1,2 @@
-INSERT INTO omniq.{{ table_name }} ({{ columns }})
+INSERT INTO {{ table_name }} ({{ columns }})
 VALUES ({{ placeholders }})

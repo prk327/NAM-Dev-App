@@ -1,2 +1,2 @@
-DELETE FROM omniq.{{ table_name }}
+DELETE FROM {{ table_name }}
 WHERE {{ condition }}

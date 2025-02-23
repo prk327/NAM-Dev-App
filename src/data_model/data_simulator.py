@@ -118,4 +118,4 @@ if __name__ == "__main__":
     # Insert into Vertica
     db = VerticaDB()  # From previous module
     db.batch_insert('omniq.users', users)
-    db.batch_insert('orders', orders)
+    db.batch_insert('omniq.orders', orders)

@@ -83,8 +83,8 @@ class VerticaDB:
         }
         return self.execute_query('insert', params, data)
 
-    def read(self, table_name, condition=None):
-        params = {'table_name': table_name, 'condition': condition}
+    def read(self, table_name, columns, condition=None):
+        params = {'table_name': table_name, 'columns': columns,'condition': condition}
         return self.execute_query('read', params)
 
     def update(self, table_name, data, condition):
@@ -113,15 +113,23 @@ class VerticaDB:
             return 0
 
         conn = self.get_connection()
+        if conn.closed:
+            raise ValueError("Connection is closed")
+            
         cursor = conn.cursor()
         total_rows = 0
         
         try:
+            
+            # Check transaction state
+            if conn.autocommit:
+                # Disable autocommit
+                conn.autocommit = False
+            
             # Split data into batches
             for i in range(0, len(data), batch_size):
                 batch = data[i:i+batch_size]
                 columns = list(batch[0].keys())
-                print(columns)
                 
                 # Create in-memory CSV buffer
                 csv_buffer = StringIO()
@@ -142,22 +150,29 @@ class VerticaDB:
                     NULL ''
                     SKIP 0 
                     REJECTMAX 0
+                    DIRECT
                 """
                 
                 # Execute COPY command
                 cursor.copy(copy_query, csv_data)
                 total_rows += len(batch)
                 csv_buffer.close()
-
+                
+            # Explicitly commit the transaction
             conn.commit()
             return total_rows
             
         except Exception as e:
-            conn.rollback()
+            # Rollback on error
+            if not conn.closed:
+                conn.rollback()
             raise e
         finally:
-            cursor.close()
-            self.release_connection(conn)
+            # Reset autocommit to default
+            if not conn.closed:
+                conn.autocommit = True
+                cursor.close()
+                self.release_connection(conn)
 
 # Example Usage
 if __name__ == "__main__":

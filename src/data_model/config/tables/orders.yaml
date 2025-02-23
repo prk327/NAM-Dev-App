@@ -2,11 +2,14 @@
 table_name: orders
 columns:
   - name: order_id
-    type: UUID
+    type: INT
     constraints:
       - primary_key
+      - auto_increment
     simulation:
-      type: uuid
+      type: sequence
+      start: 1000
+      step: 1
 
   - name: user_id
     type: INT
