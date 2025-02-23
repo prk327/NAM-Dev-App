@@ -1,2 +1,2 @@
-SELECT {{ columns }} FROM {{ table_name }}
-{% if condition %}WHERE {{ condition }}{% endif %}
+SELECT {{columns}} FROM {{schema}}.{{table_name}}
+{% if condition %}WHERE {{ condition }}{% endif %} LIMIT {{limit}}

@@ -1,2 +1,2 @@
-INSERT INTO {{ table_name }} ({{ columns }})
-VALUES ({{ placeholders }})
+INSERT INTO {{schema}}.{{table_name}} ({{columns}})
+VALUES ({{placeholders}})

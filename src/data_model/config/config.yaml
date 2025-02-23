@@ -5,3 +5,4 @@ vertica:
   password: "admin1234"
   database: "vdb"
   pool_size: 5
+  schema: "omniq"

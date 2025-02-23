@@ -1,10 +1,5 @@
 # products.yaml
 table_name: products
-includes:
-  - common_columns/id_columns
+primary_key: products_id  # Explicitly define the primary key
 columns:
-  - name: product_name
-    type: VARCHAR(100)
-    simulation:
-      type: faker
-      provider: product_name
+  - product_name

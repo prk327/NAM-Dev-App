@@ -1,2 +1,2 @@
-DELETE FROM {{ table_name }}
-WHERE {{ condition }}
+DELETE FROM {{ schema }}.{{table_name}}
+WHERE {{condition}}

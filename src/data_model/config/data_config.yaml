@@ -1,6 +1,6 @@
 # data_config.yaml
 global_settings:
-  default_schema: public
+  default_schema: omniq
   faker_locale: en_US
   seed: 42
 
