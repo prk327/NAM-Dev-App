@@ -66,3 +66,45 @@ Something like below
                 "IPv6Address": ""
             }}
 ```
+
+To Test if everythinmg is woking fine:
+
+Create 3 tables:
+
+1. User:
+CREATE TABLE omniq.users (
+    user_id INT PRIMARY KEY,          
+    username VARCHAR(100),      
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+2. Product:
+CREATE TABLE omniq.products ( 
+    products_id INT,
+    product_name VARCHAR(100)
+);
+
+3. Orders:
+CREATE TABLE omniq.orders (
+    order_id INT PRIMARY KEY,
+    user_id INT,
+    products_id INT,
+    order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    amount DECIMAL(10,2)
+);
+
+Execute the data_simulator.py,
+After running the script, check if all three tables have data,
+Also, validate if the data is making sense by running below
+Query: It will show for each user and product there must be some orders
+
+select
+	o.order_id,
+	u.username,
+	p.product_name,
+	o.order_date,
+	o.amount
+from
+	omniq.orders o
+left join omniq.users u on o.user_id = u.user_id
+left join omniq.products p on o.products_id = p.products_id
