@@ -144,8 +144,8 @@ class VerticaDB:
             return 0
 
         conn = self.get_connection()
-        if conn.closed:
-            raise ValueError("Connection is closed")
+        # if conn.closed:
+        #     raise ValueError("Connection is closed")
             
         cursor = conn.cursor()
         total_rows = 0

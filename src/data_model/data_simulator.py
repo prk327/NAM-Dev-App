@@ -132,7 +132,7 @@ class DataSimulator:
                     ref_table = col_config['simulation']['table']
                     ref_column = col_config['simulation']['column']
                     # Need to implement Enrichment table lookup
-                    record[col] = random.choice([columnsItems[0] for columnsItems in self.db.read('products', columns= 'product_name')])
+                    record[col] = random.choice([columnsItems[0] for columnsItems in self.db.read(ref_table, columns=ref_column)])
                     # if ref_table in self.generated_data:
                     #     record[col] = random.choice(self.generated_data[ref_table])[ref_column]
                     # else:
@@ -262,18 +262,18 @@ class DataSimulator:
 # Usage Example
 if __name__ == "__main__":
     simulator = DataSimulator('config/data_config.yaml')
-    
-    # Generate users
-    users = simulator.generate_data_parallel('users', 100)
-    # print(users)
 
     products = simulator.generate_data_parallel('products', 500)
+    simulator.db.batch_insert('products', products)
+
+    # Generate users
+    users = simulator.generate_data_parallel('users', 100)
+    simulator.db.batch_insert('users', users)
+    # print(users)
     
     # Generate orders referencing users
     orders = simulator.generate_data_parallel('orders', 500)
     
     # Insert into Vertica
     # db = VerticaDB()  # From previous module
-    simulator.db.batch_insert('users', users)
-    simulator.db.batch_insert('products', products)
     simulator.db.batch_insert('orders', orders)
