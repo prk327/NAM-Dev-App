@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 from db_operations import VerticaDB
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import List, Dict, Iterable, Tuple
+from threading import Lock
 
 class DataSimulator:
 
@@ -29,12 +30,14 @@ class DataSimulator:
         }
         
         
-    def __init__(self, config_path):
+    def __init__(self, config_path, max_cache_size=128):
         self.faker = Faker()
         self.config = self._load_config(config_path)
         self.tables = self._load_table_configs()
         self.columns = self._load_column_configs()
         self.generated_data = {}
+        self.reference_cache = {}
+        self.cache_lock = Lock()  # Lock for thread safety
         self.db = VerticaDB()
         self.executor = ThreadPoolExecutor(max_workers=self.config.get('max_workers', 4))
 
@@ -118,41 +121,79 @@ class DataSimulator:
                 print(f"Warning: Referenced table {ref_table} not found. Using default schema.")
         
         return schema
-
-    def generate_data(self, table_name, num_records):
-        schema = self.get_table_schema(table_name)
-        records = []
+    
+    def _fetch_reference_data(self, ref_table, ref_column, chunk_size=1000):
+        cache_key = (ref_table, ref_column)
         
-        for _ in range(num_records):
-            record = {}
-            for col, col_config in schema.items():
-                if col_config['simulation'].get('type') == 'reference':
-                    # db = VerticaDB()
-                    # Handle foreign key simulation
-                    ref_table = col_config['simulation']['table']
-                    ref_column = col_config['simulation']['column']
-                    # Need to implement Enrichment table lookup
-                    record[col] = random.choice([columnsItems[0] for columnsItems in self.db.read(ref_table, columns=ref_column)])
-                    # if ref_table in self.generated_data:
-                    #     record[col] = random.choice(self.generated_data[ref_table])[ref_column]
-                    # else:
-                    #     raise ValueError(f"Referenced table {ref_table} not found in generated data")
-                else:
-                    # Handle regular column simulation
-                    record[col] = self._generate_column_data(col_config)
-            records.append(record)
-            
-        self.generated_data[table_name] = records
-        return records
+        # Check cache first
+        if cache_key in self.reference_cache:
+            return self.reference_cache[cache_key]
+        
+        # Fetch data in chunks and store as a list
+        data = []
+        last_id = None
+        while True:
+            condition = f"rowid > {last_id}" if last_id else None
+            chunk = [
+                row[0] for row in self.db.read(
+                    ref_table, 
+                    columns=ref_column, 
+                    condition=condition, 
+                    limit=chunk_size
+                )
+            ]
+            if not chunk:
+                break
+            data.extend(chunk)
+            last_id = chunk[-1]
+        
+        # Cache the full list
+        self.reference_cache[cache_key] = data
+        return data  # Return a list, not a generator!
 
     def generate_data_parallel(self, table_name, num_records, batch_size=1000):
+        # Pre-fetch all reference data first
+        self.pre_fetch_references(table_name)
+        
+        # Parallel generation
         futures = []
         for i in range(0, num_records, batch_size):
-            futures.append(self.executor.submit(self.generate_data, table_name, min(batch_size, num_records - i)))
+            futures.append(
+                self.executor.submit(
+                    self._generate_batch,
+                    table_name,
+                    min(batch_size, num_records - i)
+                )
+            )
         results = []
         for future in as_completed(futures):
             results.extend(future.result())
         return results
+    
+    def pre_fetch_references(self, table_name):
+        schema = self.get_table_schema(table_name)
+        for col_config in schema.values():
+            if col_config['simulation'].get('type') == 'reference':
+                ref_table = col_config['simulation']['table']
+                ref_column = col_config['simulation']['column']
+                self._fetch_reference_data(ref_table, ref_column)
+    
+    def _generate_batch(self, table_name, batch_size):
+        # Reuse pre-fetched reference data
+        schema = self.get_table_schema(table_name)
+        return [self._generate_record(schema) for _ in range(batch_size)]
+    
+    def _generate_record(self, schema):
+        record = {}
+        for col, col_config in schema.items():
+            if col_config['simulation'].get('type') == 'reference':
+                ref_table = col_config['simulation']['table']
+                ref_column = col_config['simulation']['column']
+                ref_data = self.reference_cache[(ref_table, ref_column)]  # Get cached list
+                record[col] = random.choice(ref_data)  # Works with lists
+            else:
+                record[col] = self._generate_column_data(col_config)
+        return record
 
     def _generate_column_data(self, col_config):
         sim_config = col_config.get('simulation', {})
@@ -267,12 +308,12 @@ if __name__ == "__main__":
     simulator.db.batch_insert('products', products)
 
     # Generate users
-    users = simulator.generate_data_parallel('users', 100)
+    users = simulator.generate_data_parallel('users', 1000)
     simulator.db.batch_insert('users', users)
     # print(users)
     
     # Generate orders referencing users
-    orders = simulator.generate_data_parallel('orders', 500)
+    orders = simulator.generate_data_parallel('orders', 2000)
     
     # Insert into Vertica
     # db = VerticaDB()  # From previous module

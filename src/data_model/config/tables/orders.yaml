@@ -2,8 +2,6 @@
 table_name: orders
 primary_key: order_id  # Explicitly define the primary key
 columns:
-  - user_id
-  - products_id
   - order_date
   - amount
 
