@@ -1,0 +1,730 @@
+<cdr
+    type="SIP_CDR"
+    group-type="Detail"
+    display-name="SIP"
+    table-name="CDR_HPA_SIP"
+    batch-size="500"
+    file-batch-size="200000"
+    interval="2"
+    counter-field="Call Attempts"
+    timestamp-field="Start Time"
+    unique-field="CDR ID"
+    test-indication-field="Traffic Type"
+    quick-test-id-field="Quick Test Id"
+    correlation-id-field="Session ID"
+    supportsCorrelation="true"
+    correlation-type="Voice"
+    directionality="Absolute"
+    qtrace-available="true"
+    qtrace-cdr-type="Detailed"
+    reduct_cdr="true">
+    <xt:fields>
+        <xt:field
+            name="Time Stamp"
+            default-value="now"
+            db-default-value="$TIME_STAMP_DB_DEFAULT_VALUE"
+            persistent="false"
+            sam-description="DB Time Stamp"
+            include_in_db="true" />
+        <xt:field name="CDR ID" include_in_db="true" />
+        <xt:field name="Session ID" include_in_db="true" sam-description="RADCOM Session ID" />
+        <xt:field name="Measuring Probe" include_in_db="true" />
+        <xt:field name="Location" />
+        <xt:field name="Measuring Probe Type" />
+        <xt:field name="Measuring Probe Type Code" />
+        <xt:field name="Reference Group" />
+        <xt:field name="Reference Group ID" />
+        <xt:field name="SRC RTP IP In" sam-description="Source RTP IP IN" sam-display-name="rtp ip_src_in" />
+        <xt:field name="Start Time" include_in_db="true" />
+        <xt:field name="Session Duration" include_in_db="true" />
+        <xt:field name="PDD" include_in_db="true" sam-description="Post Dialing Delay (msec)" />
+        <xt:field name="ASR" include_in_db="true" sam-description="Answer Seizure Ratio" />
+        <xt:field name="NER" include_in_db="true" sam-description="Network Efficiency Ratio" />
+        <xt:field
+            name="DST RTP IP Out"
+            include_in_db="true"
+            sam-description="Destination RTP IP"
+            sam-display-name="rtp_ip_dst" />
+        <xt:field name="SRC RTP IP Out" />
+        <xt:field
+            name="DST RTP IP In"
+            include_in_db="true"
+            sam-description="Source RTP IP"
+            sam-display-name="rtp_ip_src" />
+        <xt:field
+            name="SRC Sig IP Port"
+            include_in_db="true"
+            sam-description="Source IP Address and Port"
+            sam-display-name="ip_src_port" />
+        <xt:field
+            name="DST Sig IP Port"
+            include_in_db="true"
+            sam-description="Destination IP Address and Port"
+            sam-display-name="ip_dst_port" />
+        <xt:field
+            name="SRC Sig IP"
+            include_in_db="true"
+            sam-description="Source IP Address"
+            sam-display-name="ip_src" />
+        <xt:field
+            name="DST Sig IP"
+            include_in_db="true"
+            sam-description="Destination IP Address"
+            sam-display-name="ip_dst" />
+        <xt:field name="SRC Sig Mask IP" persistent="true" />
+        <xt:field name="DST Sig Mask IP" persistent="true" />
+        <xt:field name="SRC RTP Mask IP In" persistent="true" />
+        <xt:field name="DST RTP Mask IP In" persistent="true" />
+        <xt:field name="SRC RTP Mask IP out" persistent="true" />
+        <xt:field name="DST RTP Mask IP out" persistent="true" />
+        <xt:field name="Filtered SRC Sig IP" />
+        <xt:field name="Filtered DST Sig IP" />
+        <xt:field name="Filtered SRC RTP IP In" />
+        <xt:field name="Filtered SRC RTP IP Out" />
+        <xt:field name="Filtered DST RTP IP In" />
+        <xt:field name="Filtered DST RTP IP Out" />
+        <xt:field name="Session View" include_in_db="true" />
+        <xt:field name="SRC Alias" include_in_db="true" />
+        <xt:field name="DST Alias" include_in_db="true" />
+        <xt:field name="Correlation SRC Number" include_in_db="true" />
+        <xt:field name="Correlation DST Number" include_in_db="true" />
+        <xt:field name="Phy.Layer-Signaling" include_in_db="true" />
+        <xt:field name="Service" />
+        <xt:field name="Dummy DISCONNECTED_CALLS" />
+        <xt:field name="Answer Delay" />
+        <xt:field name="Answered Calls" />
+        <xt:field name="Completed Calls" />
+        <xt:field name="Completed Calls Ratio" />
+        <xt:field name="Termination Cause" />
+        <xt:field name="Call Attempts" default-value="1" />
+        <xt:field name="VLAN ID" include_in_db="true" />
+        <!-- for SIP-I -->
+        <xt:field name="Non Stanadard Mapping" />
+        <xt:field name="Probe Correlation id" />
+        <xt:field name="Variant" />
+        <!--		 -->
+        <xt:field name="OCT Session ID" />
+        <xt:field name="OCT Session Closed" />
+        <xt:field name="User Agent" include_in_db="true" />
+        <xt:field name="Temporarily error during session" />
+        <xt:field name="Dial Digits Time" />
+        <xt:field name="Ringing Time" include_in_db="true" />
+        <xt:field name="Off Hook Time" />
+        <xt:field name="On Hook Time" />
+        <xt:field name="Connection Time" include_in_db="true" />
+        <xt:field name="Disconnection Time" include_in_db="true" />
+        <xt:field name="Avg Transaction Time" />
+        <xt:field name="MSG Count" include_in_db="true" sam-description="Count of messages" />
+        <xt:field name="INVITE Count" />
+        <xt:field name="ACK Count" />
+        <xt:field name="Arrival Time Stamp" default-value="now" />
+        <xt:field name="Event Type" include_in_db="true" />
+        <xt:field name="Quick Test Id" />
+        <xt:field name="Dummy IS_SUCCESSFUL" />
+        <xt:field name="Call Type" />
+        <xt:field name="Hold Call Count" include_in_db="true" />
+        <xt:field name="Hold Call Duration" />
+        <xt:field name="Message Content Type" include_in_db="true" />
+        <xt:field name="Message Content Length" sam-description="SIP MESSAGE Content Type Length" />
+        <xt:field name="Message Body" />
+        <xt:field name="Counter Field" column-name="TOTAL_CALL_ATTEMPTS" />
+        <xt:field name="End Time" include_in_db="true" />
+        <!-- for R70 merge -->
+        <xt:field name="Merge Flag" />
+        <!--<xt:field name="Full CDR"/>-->
+        <xt:field name="In Merge Cache" />
+        <xt:field name="Out Merge Cache" />
+        <xt:field name="Measuring Probe 1" />
+        <xt:field name="Measuring Probe 2" />
+        <!--<xt:field name="Probe Group ID"/>-->
+        <xt:field name="Arrival Time Stamp 1" />
+        <xt:field name="Arrival Time Stamp 2" />
+        <xt:field name="VoIP Call Start Time" persistent="false" />
+        <xt:field name="VoIP Call End Time" persistent="false" />
+        <xt:field name="OCT IDs List" />
+        <xt:field name="Release Cause" include_in_db="true" />
+        <xt:field name="Sent Initial CDR" default-value="false" />
+        <xt:field name="Procedure Duration" default-value="0" include_in_db="true" />
+        <!-- Just because of the index - should not be here -->
+        <xt:field name="Calling Party suffix" />
+        <xt:field name="Original Called Number suffix" />
+        <xt:field
+            name="DST RTP IP Port In"
+            include_in_db="true"
+            sam-description="Source RTP IP and Port"
+            sam-display-name="rtp_ip_dst_port" />
+        <xt:field
+            name="DST RTP IP Port Out"
+            include_in_db="true"
+            sam-description="Destination RTP IP and Port"
+            sam-display-name="rtp_ip_src_port" />
+        <xt:field name="NOA - Original Called Number Prefix" />
+        <xt:field name="NOA - Calling Party Prefix" />
+        <xt:field name="Called Country Code" include_in_db="true" />
+        <xt:field name="Calling Country Code" include_in_db="true" />
+        <xt:field name="DTMF Collection - In" sam-description="DTMF incoming" />
+        <xt:field name="DTMF Collection - Out" sam-description="DTMF outgoing" />
+        <xt:field name="URI" sam-description="SIP Request-URI User Part" />
+        <xt:field name="Orig - Correlation SRC Number" />
+        <xt:field name="Orig - Correlation DST Number" />
+        <xt:field name="Called Party" include_in_db="true" />
+        <xt:field name="Calling Party" include_in_db="true" />
+        <xt:field name="Original Called Number" />
+        <xt:field name="Call ID" include_in_db="true" />
+        <xt:field name="PAsserted" include_in_db="true" sam-description="P-Asserted-Identity Calling" />
+        <xt:field name="Diversion" include_in_db="true" />
+        <xt:field name="SIP Call Duration" />
+        <xt:field name="SIP Off to On Hook Duration" />
+        <xt:field name="Trunk Group" sam-description="Trunk Group ID" />
+        <xt:field name="Trunk Context" />
+        <!-- Updated By Omniq++ -->
+        <xt:field name="Service Profile Corr ID" include_in_db="true" />
+        <xt:field name="Max Forward" />
+        <xt:field name="From URI User" sam-description="FROM header User Part" />
+        <xt:field name="From URI Domain" sam-description="FROM header Domain Part" />
+        <xt:field
+            name="Backward Contact URI User"
+            include_in_db="true"
+            sam-description="Backward Contact URI User Part" />
+        <xt:field
+            name="Backward Contact URI Domain"
+            include_in_db="true"
+            sam-description="Backward Contact URI Domain part"
+            sam-display-name="Bcw_Contact_URI_Domain" />
+        <xt:field
+            name="Forward Contact URI User"
+            include_in_db="true"
+            sam-description="Forward Contact URI User part" />
+        <xt:field
+            name="Forward Contact URI Domain"
+            include_in_db="true"
+            sam-description="Forward Contact URI Domain part"
+            sam-display-name="Fwd_Contact_URI_Domain" />
+        <xt:field name="Invite URI User" sam-description="Request URI User part" />
+        <xt:field name="Invite URI Domain" sam-description="Request URI Domain part" />
+        <xt:field name="To URI User" sam-description="TO header User Part" />
+        <xt:field name="To URI Domain" sam-description="TO header Domain Part" />
+        <xt:field name="User Agent B" include_in_db="true" />
+        <xt:field name="Subscriber IP Port" />
+        <xt:field name="P-Access-Network-Info" include_in_db="true" sam-description="P-Access-Network-Info Calling" />
+        <xt:field name="IMS Charging ID" include_in_db="true" />
+        <xt:field name="PAsserted Called" sam-description="P-Asserted-Identity Called" />
+        <xt:field name="DSCP" include_in_db="true" />
+        <xt:field name="Messages Sent By Calling" />
+        <xt:field name="Messages Sent By Called" />
+        <xt:field name="Authentication Count" />
+        <xt:field name="Successful Authentication Count" />
+        <xt:field name="Connection Change" />
+        <xt:field name="Cancel Received" />
+        <xt:field name="Cause Count" />
+        <xt:field name="Temporary Release Cause" />
+        <xt:field name="Closed By Calling" />
+        <xt:field name="Diversion Reason" include_in_db="true" />
+        <xt:field name="SIP Reason" include_in_db="true" />
+        <xt:field name="Codec Change" />
+        <xt:field name="Backward Trunk Group" />
+        <xt:field name="Backward Trunk Context" />
+        <xt:field name="Forward Trunk Group" />
+        <xt:field name="Forward Trunk Context" />
+        <xt:field name="Calling Num Of Digits" />
+        <xt:field name="Called Num Of Digits" />
+        <xt:field name="Originating User Name" />
+        <xt:field name="Terminating User Name" />
+        <xt:field name="QVIP Source Profile ID" />
+        <xt:field name="QVIP Destination Profile ID" />
+        <xt:field name="QVIP Source Group Results Profiles IDs" />
+        <xt:field name="QVIP Destination Group Results Profiles IDs" />
+        <xt:field name="System Source Profile ID" />
+        <xt:field name="System Destination Profile ID" />
+        <xt:field name="System Source Group Results Profiles IDs" />
+        <xt:field name="System Destination Group Results Profiles IDs" />
+        <xt:field name="SRC Sig IP VLAN Key" />
+        <xt:field name="DST Sig IP VLAN Key" />
+        <xt:field name="SRC RTP IP Out VLAN Key" />
+        <xt:field name="DST RTP IP Out VLAN Key" />
+        <xt:field name="CODEC - In" sam-description="Codec Incoming" />
+        <xt:field name="CODEC - Out" sam-description="Codec Outgoing" />
+        <xt:field name="Classification Type" />
+        <xt:field name="Temporary Release Cause String" />
+        <xt:field name="Originating P-Trace-ID" />
+        <xt:field name="Terminating P-Trace-ID" />
+        <xt:field name="Correlation Originating PTID" />
+        <xt:field name="Correlation Terminating PTID" />
+        <xt:field name="IMSI" include_in_db="true" />
+        <xt:field name="MS IP Address" include_in_db="true" />
+        <xt:field name="CGI" include_in_db="true" />
+        <xt:field name="MSISDN" />
+        <xt:field name="IMEI" />
+        <xt:field name="IMEI SV" />
+        <xt:field name="MCC-MNC" />
+        <xt:field name="Service DST IP" sam-description="Network Node IP Address" />
+        <xt:field name="Direction" />
+        <xt:field name="PGW Address for signaling" sam-description="PGW IP Signaling" sam-display-name="PGW IP sig" />
+        <xt:field
+            name="PGW Address for user traffic"
+            sam-description="PGW IP User-plane"
+            sam-display-name="PGW IP user" />
+        <xt:field name="SGW Address for signaling" sam-description="SGW IP Signaling" sam-display-name="SGW IP sig" />
+        <xt:field
+            name="SGW Address for user traffic"
+            sam-description="SGW IP User-plane"
+            sam-display-name="SGW IP user" />
+        <xt:field name="ENB IP Address" />
+        <xt:field name="APN" />
+        <!-- SIP -->
+        <xt:field name="GTP TEID DL" />
+        <xt:field name="GTP TEID UL" />
+        <xt:field name="Correlation Call ID" include_in_db="true" />
+        <xt:field name="SIGNALING BIN" />
+        <xt:field name="Procedure Type" include_in_db="true" />
+        <xt:field name="NOA - Called Party Prefix" />
+        <xt:field name="Media Type" include_in_db="true" />
+        <xt:field
+            name="Signaling Codecs"
+            include_in_db="true"
+            sam-description="List of audio codecs"
+            sam-display-name="Codecs" />
+        <xt:field name="SIP 200 OK Timestamp" />
+        <xt:field name="Bearer QCI" />
+        <xt:field name="Bearer ID" />
+        <xt:field name="GTP Interface Type" />
+        <xt:field name="Debug Info" />
+        $CDR_START_HOUR_BY_START_TIME_IF_REQUIRED
+        <xt:field name="Originating Path" include_in_db="true" sam-description="Originating MSRP PATH" />
+        <xt:field name="Terminating Path" include_in_db="true" sam-description="Terminating Path" />
+        <xt:field name="SIP Reason Protocol" include_in_db="true" />
+        <xt:field name="SIP Reason Text" include_in_db="true" />
+        <xt:field name="Unique Cdr Id" include_in_db="true" />
+        <xt:field name="MCPTT GROUP ID" include_in_db="true" />
+        <xt:field name="BYE Count" include_in_db="true" />
+        <xt:field name="CANCEL Count" include_in_db="true" />
+        <xt:field name="OPTIONS Count" include_in_db="true" />
+        <xt:field name="PRACK Count" include_in_db="true" />
+        <xt:field name="SUBSCRIBE Count" include_in_db="true" />
+        <xt:field name="NOTIFY Count" include_in_db="true" />
+        <xt:field name="PUBLISH Count" include_in_db="true" />
+        <xt:field name="INFO Count" include_in_db="true" />
+        <xt:field name="REFER Count" include_in_db="true" />
+        <xt:field name="MESSAGE Count" include_in_db="true" />
+        <xt:field name="UPDATE Count" include_in_db="true" />
+        <xt:field name="RE-INVITE Count" include_in_db="true" />
+        <xt:field name="SETUP-INVITE Count" include_in_db="true" />
+        <xt:field name="SIP Response Codes" include_in_db="true" sam-description="List of Responses" />
+        <xt:field name="Release Direction" include_in_db="true" />
+        <xt:field name="SIP 1XX Count" include_in_db="true" sam-description="SIP 1XX response count" />
+        <xt:field name="SIP 2XX Count" include_in_db="true" sam-description="SIP 2XX response count" />
+        <xt:field name="SIP 3XX Count" include_in_db="true" sam-description="SIP 3XX response count" />
+        <xt:field name="SIP 4XX Count" include_in_db="true" sam-description="SIP 4XX response count" />
+        <xt:field name="SIP 5XX Count" include_in_db="true" sam-description="SIP 5XX response count" />
+        <xt:field name="SIP 6XX Count" include_in_db="true" sam-description="SIP 6XX response count" />
+        <xt:field name="SIP BYE Response Code" include_in_db="true" sam-description="SIP BYE response" />
+        <xt:field name="SIP CANCEL Response Code" include_in_db="true" sam-description="SIP CANCEL response" />
+        <xt:field name="SIP OPTIONS Response Code" include_in_db="true" sam-description="SIP OPTIONS response" />
+        <xt:field name="SIP PRACK Response Code" include_in_db="true" sam-description="SIP PRACK response" />
+        <xt:field name="SIP SUBSCRIBE Response Code" include_in_db="true" sam-description="SIP SUBSCRIBE response" />
+        <xt:field name="SIP NOTIFY Response Code" include_in_db="true" sam-description="SIP NOTIFY response" />
+        <xt:field name="SIP PUBLISH Response Code" include_in_db="true" sam-description="SIP PUBLISH response" />
+        <xt:field name="SIP INFO Response Code" include_in_db="true" sam-description="SIP INFO response" />
+        <xt:field name="SIP REFER Response Code" include_in_db="true" sam-description="SIP REFER response" />
+        <xt:field name="SIP MESSAGE Response Code" include_in_db="true" sam-description="SIP MESSAGE response" />
+        <xt:field name="SIP UPDATE Response Code" include_in_db="true" sam-description="SIP UPDATE response" />
+        <xt:field
+            name="SIP SETUP INVITE Response Code"
+            include_in_db="true"
+            sam-description="SIP SETUP INVITE response" />
+        <xt:field name="SIP REINVITE Response Code" include_in_db="true" sam-description="SIP REINVITE response" />
+        <xt:field name="Source NE Name" include_in_db="true" />
+        <xt:field name="Dest NE Name" include_in_db="true" />
+        <xt:field name="SIP Session ID" include_in_db="true" />
+        <xt:field name="MCPTT PARTY ID" include_in_db="true" />
+        <xt:field name="P-Served-User" include_in_db="true" />
+        <xt:field name="Resource Priority" include_in_db="true" />
+        <xt:field name="CPC" include_in_db="true" />
+        <xt:field name="ConversationID" include_in_db="true" />
+        <xt:field name="ContributionID" include_in_db="true" />
+        <xt:field name="IMDN_Message" include_in_db="true" />
+        <xt:field name="In RTP MOS weighted avg" sam-description="PMOS weighted avg Incoming" />
+        <xt:field name="Out RTP MOS weighted avg" sam-description="PMOS weighted avg Outgoing" />
+        <xt:field name="TP Message Type" />
+        <xt:field name="Last Request Code" />
+        <xt:field name="TMGI" include_in_db="true" sam-description="Temporary Mobile Group Identity" />
+        <xt:field name="MC Service" include_in_db="true" />
+        <xt:field name="In-Reply-To" sam-description="In-Reply-To header" />
+        <xt:field name="Character set" />
+        <xt:field name="Message Class" />
+        <xt:field name="Message Parts" />
+        <xt:field name="Message Part Number" />
+        <!-- RTP Call/Last interval KPIs (per direction) -->
+        <xt:field
+            name="Last Interval PMOS In"
+            sam-description="RTP Last Interval PMOS Incoming"
+            sam-display-name="Last_int_PMOS_IN" />
+        <xt:field
+            name="Last Interval PMOS Out"
+            sam-description="RTP Last Interval PMOS Outgoing"
+            sam-display-name="Last_int_PMOS_OUT" />
+        <xt:field
+            name="Last Interval Jitter In"
+            sam-description="RTP Last Interval JITTER Incoming"
+            sam-display-name="Last_int_JITTER_IN" />
+        <xt:field
+            name="Last Interval Jitter Out"
+            sam-description="RTP Last Interval JITTER Outgoing"
+            sam-display-name="Last_int_JITTER_OUT" />
+        <xt:field
+            name="Last Interval Packet Loss In"
+            sam-description="RTP Last Interval Packets Loss Incoming (%)"
+            sam-display-name="Last_int_Packet_Loss_IN" />
+        <xt:field name="Last Interval Packet Loss Out" sam-description="RTP Last Interval Packets Loss Outgoing(%)" />
+        <xt:field
+            name="Last Interval R Factor In"
+            sam-description="RTP Last Interval R-Factor Incoming"
+            sam-display-name="Last_int_R-Factor_IN" />
+        <xt:field
+            name="Last Interval R Factor Out"
+            sam-description="RTP Last Interval R-Factor Outgoing"
+            sam-display-name="Last_int_R-Factor_OUT" />
+        <!-- RTP Call/Average KPIs (per direction) -->
+        <xt:field name="Passive MOS Avg In" include_in_db="true" sam-description="RTP Average PMOS Incoming" />
+        <xt:field name="Passive MOS Avg Out" include_in_db="true" sam-description="RTP Average PMOS Outgoing" />
+        <xt:field name="Jitter Avg In" include_in_db="true" sam-description="RTP Average JITTER Incoming" />
+        <xt:field name="Jitter Avg Out" include_in_db="true" sam-description="RTP Average JITTER Outgoing" />
+        <xt:field
+            name="Packet Loss Avg In"
+            include_in_db="true"
+            sam-description="RTP Average Packets Loss Incoming(%)" />
+        <xt:field
+            name="Packet Loss Avg Out"
+            include_in_db="true"
+            sam-description="RTP Average Packets Loss Outgoing(%)" />
+        <xt:field name="PMOS R-Factor Avg In" sam-description="RTP Average R-Factor Incoming" />
+        <xt:field name="PMOS R-Factor Avg Out" sam-description="RTP Average R-Factor Outgoing" />
+        <!-- SIP Call KPIs (per direction) -->
+        <xt:field name="Total Mute Time In" />
+        <xt:field name="Total Mute Time Out" />
+        <xt:field name="Total Mute Count In" include_in_db="true" />
+        <xt:field name="Total Mute Count Out" include_in_db="true" />
+        <!-- Correlation Keys (debug) -->
+        <xt:field name="Correlation Protocols" />
+        <xt:field name="Correlation Session IDs" include_in_db="true" />
+        <!-- RTP Call KPIs (per direction) -->
+        <xt:field
+            name="Total RTP Packets In"
+            include_in_db="true"
+            sam-description="RTP Packets Incoming"
+            sam-display-name="RTP_Packets_Count_IN" />
+        <xt:field
+            name="Total RTP Packets Out"
+            include_in_db="true"
+            sam-description="RTP Packets Outgoing"
+            sam-display-name="RTP_Packets_Count_OUT" />
+        <!-- User Identity -->
+        <xt:field name="SRC IMSI" include_in_db="true" sam-description="Calling IMSI" sam-display-name="Calling IMSI" />
+        <xt:field name="DST IMSI" include_in_db="true" sam-description="Called IMSI" sam-display-name="Called IMSI" />
+        <xt:field name="SRC IMEI" sam-description="Calling IMEI" sam-display-name="Calling IMEI" />
+        <xt:field name="DST IMEI" sam-description="Called IMEI" sam-display-name="Called IMEI" />
+        <!-- SIP Call KPIs (per direction) -->
+        <xt:field
+            name="Last Interval Packets In"
+            sam-description="RTP Last Interval Packets Incoming"
+            sam-display-name="Last_int_Pacets_IN" />
+        <xt:field
+            name="Last Interval Packets Out"
+            sam-description="RTP Last Interval Packets Outgoing"
+            sam-display-name="Last_int_Packets_OUT" />
+        <!-- MCPTT/GRE Header KPIs -->
+        <xt:field name="MCPTT Subscriber ID" include_in_db="true" />
+        <!-- SIP Call Classification (E911) -->
+        <xt:field name="Classification Name" />
+        <xt:field name="SIP Event Header" include_in_db="true" />
+        <xt:field name="P-Associated-URI" />
+        <!-- Actual codec name -->
+        <xt:field name="Conversation Codec Name" />
+        <xt:field name="Conversation Codec Payload" />
+        <!-- RTP Call KPIs (per direction) -->
+        <xt:field
+            name="Last Interval Mute Time In"
+            sam-description="Last Interval Mute Time Incoming"
+            sam-display-name="Last_int_Mute_Time_IN" />
+        <xt:field
+            name="Last Interval Mute Time Out"
+            sam-description="Last Interval Mute Time Outgoing"
+            sam-display-name="Last_int_Mute_Time_OUT" />
+        <xt:field name="Debug Info Big Size" />
+        <xt:field name="Access Type Name" include_in_db="true" sam-description="Access Type Calling" />
+        <xt:field name="RAT Type" include_in_db="true" />
+        <xt:field name="Term Access Type Name" include_in_db="true" sam-description="Access Type Called" />
+        <xt:field name="Terminating CGI" include_in_db="true" />
+        <xt:field name="Term P-Access-Network-Info" sam-description="P-Access-Network-Info Called" />
+        <xt:field name="TMGI_HEX" include_in_db="true" sam-description="Temporary Mobile Group Identity in HEX" />
+        <xt:field name="Revoke Type" include_in_db="true" />
+        <xt:field name="ESP Encrypted Algorithm" />
+        <xt:field name="Ciphered Frames" />
+        <xt:field name="Deciphered Frames" />
+        <xt:field name="Failed Deciphering Frames" />
+        <xt:field name="Source GTP NE Name" />
+        <xt:field name="Destination GTP NE Name" />
+        <xt:field name="Roaming Operator Name" />
+        <xt:field name="Roaming Direction" include_in_db="true" />
+        <xt:field name="Roaming Status" include_in_db="true" />
+        <xt:field name="MCC" />
+        <xt:field name="MNC" />
+        <xt:field name="CODEC LIST - In " />
+        <xt:field name="CODEC LIST - Out" />
+        <xt:field name="History Info Index" />
+        <xt:field name="EPS fall back" sam-description="EPS fall-back indication" />
+        <!-- Conversational SIP Call KPIs (per direction) -->
+        <xt:field name="Conv Total Mute Time In" sam-description="Mute Conv Time In" />
+        <xt:field name="Conv Total Mute Time Out" sam-description="Mute Conv Time Out" />
+        <xt:field name="Conv Total Mute Count In" sam-description="Mute Conv Count In" />
+        <xt:field name="Conv Total Mute Count Out" sam-description="Mute Conv Count Out" />
+        <!-- Conversational RTP Call KPIs (per direction) -->
+        <xt:field name="Conv Total RTP Packets In" />
+        <xt:field name="Conv Total RTP Packets Out" />
+        <!-- Conversational RTP Call/Average KPIs (per direction) -->
+        <xt:field name="Conv Passive MOS Avg In" sam-description="RTP Average PMOS Incoming conversation" />
+        <xt:field name="Conv Passive MOS Avg Out" sam-description="RTP Average PMOS Outgoing conversation" />
+        <xt:field name="Conv Jitter Avg In" sam-description="RTP Average JITTER Incoming conversation" />
+        <xt:field name="Conv Jitter Avg Out" sam-description="RTP Average JITTER Outgoing conversation" />
+        <xt:field name="Conv Packet Loss Avg In" sam-description="RTP Average Packets Loss Incoming conversation(%)" />
+        <xt:field name="Conv Packet Loss Avg Out" sam-description="RTP Average Packets Loss Outgoing conversation(%)" />
+        <xt:field name="Conv PMOS R-Factor Avg In" sam-description="RTP Average R-Factor Incoming conversation" />
+        <xt:field name="Conv PMOS R-Factor Avg Out" sam-description="RTP Average R-Factor Outgoing conversation" />
+        <xt:field name="Term MCC" />
+        <xt:field name="Term MNC" />
+        <xt:field name="Term Roaming Status" include_in_db="true" />
+        <xt:field name="Term Roaming Operator Name" />
+        <xt:field name="Term Roaming Direction" include_in_db="true" />
+        <xt:field name="Total Hold Call Duration In" include_in_db="true" />
+        <xt:field name="Total Hold Call Duration Out" include_in_db="true" />
+        <xt:field name="Total Hold Call Count In" include_in_db="true" />
+        <xt:field name="Total Hold Call Count Out" include_in_db="true" />
+        <xt:field name="SETUP-INVITE RT" />
+        <xt:field name="Source NE Type" />
+        <xt:field name="Dest NE Type" />
+        <xt:field name="Pair of NE IP" />
+        <xt:field name="Pair of NE Name" />
+        <xt:field name="Pair of NE Type" />
+        <xt:field name="SIP SETUP INVITE Retransmissions Count" />
+        <xt:field name="SIP SETUP INVITE Duplications Count" />
+        <xt:field name="Dest DSCP" include_in_db="true" />
+        <xt:field name="SIP Reason Protocols List" />
+        <xt:field name="SIP Reason Codes List" />
+        <xt:field name="Source NE LOCATION" />
+        <xt:field name="Dest NE LOCATION" />
+        <xt:field name="Pair of NE LOCATION" />
+        <xt:field name="SIP GTP QFI" />
+        <xt:field name="Carrier Identification Code" include_in_db="true" />
+        <xt:field name="Drop Call Count" include_in_db="true" />
+        <xt:field name="Charging Area" sam-description="Operator Charging Area Code Calling" />
+        <xt:field name="Term Charging Area" sam-description="Operator Charging Area Code Called" />
+        <xt:field name="P Visited Network Info" sam-description="P-Visited-Network-Info Calling" />
+        <xt:field name="Term P Visited Network Info" sam-description="P-Visited-Network-Info Called" />
+        <xt:field name="Orig-ioi" />
+        <xt:field name="Term-ioi" />
+        <xt:field name="Transit-ioi" />
+        <xt:field name="Frames Count Saved" include_in_db="true" />
+        <xt:field name="Forward Contact URI Parameter" />
+        <xt:field name="Source IP of Release" sam-description="Source IP of the last response or BYE" />
+        <xt:field
+            name="Source NE Name of Release"
+            sam-description="Source Network Element of the last response or BYE" />
+        <xt:field name="IPX Operator" />
+        <xt:field name="IPX Country" />
+        <xt:field name="Term IPX Operator" />
+        <xt:field name="Term IPX Country" />
+        <xt:field name="Enrich Roaming Operator" />
+        <xt:field name="Enrich Roaming Country" />
+        <xt:field name="Term Enrich Roaming Operator" />
+        <xt:field name="Term Enrich Roaming Country" />
+        <!-- SIP Call KPIs (per direction) msec -->
+        <xt:field name="Total Mute Time msec In" sam-description="Mute time downstream (IN) (msec)" />
+        <xt:field name="Total Mute Time msec Out" sam-description="Mute time upstream (OUT) (msec)" />
+        <xt:field name="Conv Total Mute Time msec In" sam-description="Conversation mute time downstream (IN) (msec)" />
+        <xt:field name="Conv Total Mute Time msec Out" sam-description="Conversation mute time upstream (OUT) (msec)" />
+        <xt:field
+            name="Last Interval Mute Time msec In"
+            sam-description="Last Interval mute time downstream (IN) (msec)" />
+        <xt:field
+            name="Last Interval Mute Time msec Out"
+            sam-description="Last Interval mute time upstream (OUT) (msec)" />
+        <xt:field name="Max Consecutive Mute Time" />
+        <xt:field name="Max Consecutive Mute Time msec" />
+        <xt:field name="Timestamp Max Consecutive Mute Time" />
+        <xt:field name="Max Consecutive Mute Score" />
+        <xt:field name="Conv Max Consecutive Mute Time" />
+        <xt:field name="Conv Max Consecutive Mute Time msec" />
+        <xt:field name="Conv Timestamp Max Consecutive Mute Time" />
+        <xt:field name="Conv Max Consecutive Mute Score" />
+        <xt:field name="Min Passive MOS Avg In" />
+        <xt:field name="Min Passive MOS Avg Out" />
+        <xt:field name="Conv Min Passive MOS Avg In" />
+        <xt:field name="Conv Min Passive MOS Avg Out" />
+        <xt:field name="Max Jitter Avg In" />
+        <xt:field name="Max Jitter Avg Out" />
+        <xt:field name="Conv Max Jitter Avg In" />
+        <xt:field name="Conv Max Jitter Avg Out" />
+        <xt:field name="Max Packet Loss Avg In" />
+        <xt:field name="Max Packet Loss Avg Out" />
+        <xt:field name="Conv Max Packet Loss Avg In" />
+        <xt:field name="Conv Max Packet Loss Avg Out" />
+        <xt:field name="IMSI From Probe" />
+        <xt:field name="Last Response Cause" include_in_db="true" />
+    </xt:fields>
+    <xt:indexes
+        ><!--indexes names compatiblr with previous version -->
+        <xt:index name="I_HPA_SIP_START_TIME">
+            <xt:field name="Start Time" />
+        </xt:index>
+        <xt:index name="I_HPA_SIP_CORRELATE">
+            <xt:field name="Session ID" />
+            <xt:field name="Measuring Probe" />
+        </xt:index>
+        <xt:index name="I_HPA_SIP_CALLING_SUFF">
+            <xt:field name="Calling Party suffix" />
+        </xt:index>
+        <xt:index name="I_HPA_SIP_CALLED_NUM_SUFF">
+            <xt:field name="Original Called Number suffix" />
+        </xt:index>
+        <xt:index name="I_HPA_SIP_TIME_STAMP">
+            <xt:field name="Time Stamp" />
+        </xt:index>
+        <xt:index name="I_HPA_SIP_SOURCE_IP">
+            <xt:field name="SRC Sig IP" />
+        </xt:index>
+        <xt:index name="I_HPA_SIP_DEST_IP">
+            <xt:field name="DST Sig IP" />
+        </xt:index>
+        <xt:index name="I_HPA_SIP_RELEASE_CAUSE">
+            <xt:field name="Release Cause" />
+        </xt:index>
+    </xt:indexes>
+    <actions>
+        <action class-name="com.radcom.omniq.manager.actions.MergeCDRsAction" />
+        <action class-name="com.radcom.omniq.manager.actions.StartTimeCheckAction" />
+        <action class-name="com.radcom.omniq.manager.actions.CallPartiesCalculationAction" />
+        <action class-name="com.radcom.omniq.manager.actions.ProbeCalculationsAction" />
+        <action class-name="com.radcom.omniq.manager.actions.CalculateMCCMNCAction" />
+        <action class-name="com.radcom.omniq.manager.actions.LocationAction" />
+        <action class-name="com.radcom.omniq.manager.actions.RoamingDataAction" />
+        <action class-name="com.radcom.omniq.manager.actions.RoamingDataSipAction" />
+        <action class-name="com.radcom.omniq.manager.actions.CdrCalculationsAction" />
+        <action class-name="com.radcom.omniq.manager.actions.CdrFieldUpsertAction" />
+        <!--action class-name = "com.radcom.omniq.manager.actions.QuickTestAction"/> -->
+        <action class-name="com.radcom.omniq.manager.actions.SuffixFieldAction">
+            <DynamicActionValues srcFieldID="537" destFieldID="3649" />
+            <!--Calling Party to Calling Party Suffix-->
+            <DynamicActionValues srcFieldID="2659" destFieldID="3650" />
+            <!--Original Called Number to Original Called Number Sufix-->
+        </action>
+        <action class-name="com.radcom.omniq.manager.actions.PrefixCalculationAction" />
+        <action class-name="com.radcom.omniq.manager.actions.AlarmsCalculationAction" />
+        <action class-name="com.radcom.omniq.manager.actions.DynamicValuesCopy">
+            <DynamicActionValues srcFieldID="36" destFieldID="3504" />
+            <!--termination to release cause-->
+            <DynamicActionValues
+                srcFieldID="351"
+                destFieldID="3814"
+                copyUsingEnrichmentMask="true"
+                enrichmentMaskColumn="141" />
+            <!--Src Sig IP to Filtered Src Sig IP-->
+            <DynamicActionValues
+                srcFieldID="352"
+                destFieldID="3815"
+                copyUsingEnrichmentMask="true"
+                enrichmentMaskColumn="141" />
+            <!--Dest Sig IP to Filtered Dest Sig IP-->
+            <DynamicActionValues srcFieldID="99" destFieldID="3816" />
+            <!--Src RTP IP In to Filtered Src RTP IP In-->
+            <DynamicActionValues srcFieldID="100" destFieldID="3817" />
+            <!--Src RTP IP Out to Filtered Src RTP IP Out-->
+            <DynamicActionValues srcFieldID="101" destFieldID="3818" />
+            <!--Dest RTP IP In to Filtered Dest RTP IP In-->
+            <DynamicActionValues srcFieldID="102" destFieldID="3819" />
+            <!--Dest RTP IP Out to Filtered Dest RTP IP Out-->
+            <DynamicActionValues srcFieldID="422" destFieldID="4163" copyAllValues="true" />
+            <!--Correlation SRC Number to Orig - Correlation SRC Number-->
+            <DynamicActionValues srcFieldID="423" destFieldID="4164" copyAllValues="true" />
+            <!--Correlation DST Number to Orig - Correlation DST Number-->
+            <DynamicActionValues srcFieldID="422" destFieldID="537" copyAllValues="true" />
+            <!--Correlation SRC Number to Calling Party-->
+            <DynamicActionValues srcFieldID="423" destFieldID="170" copyAllValues="true" />
+            <!--Correlation DST Number to Called Party-->
+        </action>
+        <action class-name="com.radcom.omniq.manager.actions.VoiceCorrelationPreparationAction" />
+        <action class-name="com.radcom.omniq.manager.actions.VoiceCorrelationAction" />
+        <action class-name="com.radcom.omniq.manager.actions.EndTimeAction" />
+        <action class-name="com.radcom.omniq.manager.actions.NumOfDigitsAction">
+            <DynamicActionValues srcFieldID="422" destFieldID="423" />
+        </action>
+        <action class-name="com.radcom.omniq.manager.actions.WireLineDomainCalculationAction" />
+        <action class-name="com.radcom.omniq.manager.actions.CdrProfilerAction" />
+        <action class-name="com.radcom.omniq.manager.actions.DynamicValuesConcatenation">
+            <ConcatenateFields delimiter="_" destFieldID="4722" copyOnlyIfExistInET="true">
+                <!-- SRC Sig IP VLAN Key-->
+                <srcField>351</srcField>
+                <!-- SRC Sig IP Out -->
+                <srcField>1481</srcField>
+                <!-- VLAN ID -->
+            </ConcatenateFields>
+            <ConcatenateFields delimiter="_" destFieldID="4723" copyOnlyIfExistInET="true">
+                <!-- DST Sig IP VLAN Key-->
+                <srcField>352</srcField>
+                <!-- DST Sig IP -->
+                <srcField>1481</srcField>
+                <!-- VLAN ID -->
+            </ConcatenateFields>
+            <ConcatenateFields delimiter="_" destFieldID="4724" copyOnlyIfExistInET="true">
+                <!-- SRC RTP IP Out VLAN Key-->
+                <srcField>100</srcField>
+                <!-- SRC RTP IP Out -->
+                <srcField>1481</srcField>
+                <!-- VLAN ID -->
+            </ConcatenateFields>
+            <ConcatenateFields delimiter="_" destFieldID="4725" copyOnlyIfExistInET="true">
+                <!-- DST RTP IP Out VLAN Key-->
+                <srcField>102</srcField>
+                <!-- DST RTP IP Out -->
+                <srcField>1481</srcField>
+                <!-- VLAN ID -->
+            </ConcatenateFields>
+            <ConcatenateFields delimiter="-->" destFieldID="7917">
+                <!-- Pair of NE IP-->
+                <srcField>351</srcField>
+                <!-- SRC Sig IP -->
+                <srcField>352</srcField>
+                <!-- DST Sig IP -->
+            </ConcatenateFields>
+            <ConcatenateFields delimiter="-->" destFieldID="7915">
+                <!-- Pair of NE Name-->
+                <srcField>5310</srcField>
+                <!-- Source Ne Name -->
+                <srcField>5311</srcField>
+                <!-- Dest Ne Name -->
+            </ConcatenateFields>
+            <ConcatenateFields delimiter="-->" destFieldID="7916">
+                <!-- Pair of NE Type-->
+                <srcField>6415</srcField>
+                <!-- Source NE Type -->
+                <srcField>6416</srcField>
+                <!-- Dest NE Type -->
+            </ConcatenateFields>
+            <ConcatenateFields delimiter="-->" destFieldID="7931">
+                <!-- Pair of NE LOCATION-->
+                <srcField>6474</srcField>
+                <!-- Source NE LOCATION -->
+                <srcField>6475</srcField>
+                <!-- Dest NE LOCATION -->
+            </ConcatenateFields>
+        </action>
+        <action class-name="com.radcom.omniq.manager.actions.AccessTypeNameAction" isEnabled="true" />
+        <action class-name="com.radcom.omniq.manager.actions.IMSIDetectionAction" isEnabled="true" />
+        <action class-name="com.radcom.omniq.manager.actions.VoiceScoreAction" isEnabled="true" />
+        <action class-name="com.radcom.omniq.manager.actions.PersistentAction" isEnabled="true" />
+        <action class-name="com.radcom.omniq.manager.actions.LogAction" />
+        <!-- SourceDestNeNameAction does the same calculation as in case of ConvertKeyToValueAction for SRC Sig IP and DST Sig IP when SIP is over GI,
+			if SIP is over GTP then another algorithm is applied for generating the source/dest ne names
+			please take care of not overwritting the Source/DEST NeName or Source GTP/Dest GTP Ne Name in any way-->
+        <action class-name="com.radcom.omniq.manager.actions.SourceDestNeNameAction" isEnabled="true" />
+    </actions>
+</cdr>

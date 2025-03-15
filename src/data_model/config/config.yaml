@@ -6,3 +6,15 @@ vertica:
   database: "vdb"
   pool_size: 5
   schema: "omniq"
+
+xml_path:
+  cdr_template: "config/cdr_templates.xml"  # Directory for CDR XML files
+  fields_template: "./xml_fields/fields.xml"  # Path to fields XML
+
+yaml_path:
+  columns: "./config/columns/columns.yaml"  # Output for columns YAML
+  tables: "config/tables"  # Directory for table YAML files
+
+tables:
+  - cdr_hpa_sip
+  - cdr_hpa_diameter
